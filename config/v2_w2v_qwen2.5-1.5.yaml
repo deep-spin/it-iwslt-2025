@@ -1,0 +1,77 @@
+datasets:
+- librispeech
+- mls
+- cv16.1
+selected_langs:
+- en
+- de
+- it
+- zh-CN
+- zh-HK
+- zh-TW
+dataset_workers: 8
+max_duration: 90
+
+audio_encoder: facebook/w2v-bert-2.0
+text_decoder: Qwen/Qwen2.5-1.5B
+
+training_args:
+  output_dir: $SCRATCH/speech_lm/models/w2v-qwen25-15_align-iwslt_v2
+  seed: 42
+  do_train: true
+  per_device_train_batch_size: 16
+  gradient_accumulation_steps: 128
+  per_device_eval_batch_size: 2
+  adam_beta1: 0.9
+  adam_beta2: 0.95
+  num_train_epochs: 1
+  lr_scheduler_type: cosine
+  warmup_steps: 30
+  logging_strategy: steps
+  logging_steps: 5
+  report_to: wandb
+  do_eval: true
+  eval_strategy: steps
+  eval_steps: 50
+  # eval_on_start: true
+  save_strategy: steps
+  save_total_limit: 5
+  save_steps: 50
+  dataloader_num_workers: 4
+  remove_unused_columns: false
+  bf16: true
+  group_by_length: true
+  # include_tokens_per_second: true
+
+freeze_encoder: true
+freeze_decoder: true
+encoder_lr: 6e-6
+decoder_lr: 2e-5
+adapter_lr: 2e-4
+min_lr_scale: 0.1
+
+val_samples_per_language: 3000
+
+encoder_params:
+  add_adapter: true
+  adapter_kernel_size: 3
+  adapter_stride: 2
+  num_adapter_layers: 2  # frames == 80ms
+
+decoder_params:
+  attn_implementation: "flash_attention_2"
+  # use_sliding_window: true
+  # sliding_window: 128
+
+    # Commented options:
+    # freeze_encoder: true
+    # training_args:
+    #   warmup_ratio: 0.05
+    #   learning_rate: 2e-5
+    #   bf16_full_eval: true
+    #   do_eval: true
+    #   eval_strategy: "steps"
+    #   eval_steps: 1000
+    #   resume_from_checkpoint: true
+    #   eval_on_start: true
+    #   torch_compile: true

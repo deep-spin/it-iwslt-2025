@@ -1,0 +1,90 @@
+datasets:
+- spoken-squad
+- fleurs
+- voxpopuli
+- people_speech
+- covost2
+- cv16.1-pseudolabel
+- unanswerable-spoken-squad  
+- mls
+- fleurs
+
+selected_langs:
+- en
+- de
+- it
+- zh
+
+dataset_workers: 8
+max_duration: 45
+min_chars: 3
+
+collator_args:
+  add_text: true
+  add_eos_token: true
+  add_length_probability: -1
+  preamble_col: question
+
+# Model args
+ckpt: /mnt/home/giuseppe/myscratch/speech_lm/models/w2v-qwen25-15_align-iwslt_v2
+encoder_params:
+  add_adapter: true
+  adapter_kernel_size: 3
+  adapter_stride: 2  # about .5 compression ratio
+  num_adapter_layers: 2
+
+attn_implementation: "flash_attention_2"
+
+training_args:
+  output_dir: /mnt/home/giuseppe/myscratch/speech_lm/models/w2v-qwen25-15_align-iwslt-it_v2
+  seed: 42
+  do_train: true
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 256
+  per_device_eval_batch_size: 1
+  adam_beta1: 0.9
+  adam_beta2: 0.95
+  num_train_epochs: 1
+  lr_scheduler_type: cosine
+  warmup_steps: 50
+  logging_strategy: steps
+  logging_steps: 25
+  report_to: wandb
+  do_eval: true
+  eval_strategy: steps
+  eval_steps: 600
+  # eval_on_start: true
+  save_strategy: steps
+  save_total_limit: 5
+  save_steps: 200
+  dataloader_num_workers: 8
+  remove_unused_columns: false
+  bf16: true
+  group_by_length: true
+  # eval_on_start: true
+  # include_tokens_per_second: true
+
+encoder_lr: 6e-6
+decoder_lr: 2e-5
+adapter_lr: 2e-4
+min_lr_scale: 0.1
+
+val_samples_per_language: 3000
+
+
+  # attn_implementation: "sdpa"
+  # use_sliding_window: true
+  # sliding_window: 32
+
+    # Commented options:
+    # freeze_encoder: true
+    # training_args:
+    #   warmup_ratio: 0.05
+    #   learning_rate: 2e-5
+    #   bf16_full_eval: true
+    #   do_eval: true
+    #   eval_strategy: "steps"
+    #   eval_steps: 1000
+    #   resume_from_checkpoint: true
+    #   eval_on_start: true
+    #   torch_compile: true

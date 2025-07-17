@@ -1,0 +1,8 @@
+wandb
+datasets
+tyro
+librosa
+soundfile
+sentencepiece
+accelerate
+deepspeed
