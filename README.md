@@ -1,11 +1,13 @@
 # it-iwslt-2025
-Code for the paper "Instituto de Telecomunicações at IWSLT 2025: Aligning Small-Scale Speech and Language Models for Speech-to-Text Learning"
 
 [![arxiv preprint](https://img.shields.io/badge/arXiv-2208.01575-b31b1b.svg)](https://arxiv.org/abs/2506.17019)
 
+Code for the paper "Instituto de Telecomunicações at IWSLT 2025: Aligning Small-Scale Speech and Language Models for Speech-to-Text Learning"
+
+
 > [!NOTE]
-> We are working to release an improved training and inference codebase for our model. 
-> In this repository, you will only find the model implementation and training code and configs for the IWSLT submission.
+> We are working to release an improved training and inference codebase. 
+> In this repository, you will only find the model implementation and training code and configs for our IWSLT 2025 submission.
 
 ## Project Structure
 
