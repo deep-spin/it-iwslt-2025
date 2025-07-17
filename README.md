@@ -1,8 +1,6 @@
-# it-iwslt-2025
-
 [![arxiv preprint](https://img.shields.io/badge/arXiv-2208.01575-b31b1b.svg)](https://arxiv.org/abs/2506.17019)
 
-Code for the paper "Instituto de Telecomunicações at IWSLT 2025: Aligning Small-Scale Speech and Language Models for Speech-to-Text Learning"
+Code for the paper **Instituto de Telecomunicações at IWSLT 2025: Aligning Small-Scale Speech and Language Models for Speech-to-Text Learning**.
 
 
 > [!NOTE]
